@@ -88,5 +88,12 @@ public class Team {
         resetPlayers();
     }
 
+    public String toStrings() {
+        return "Team Name: " + teamName + "\n" +
+                "Team Color: " + teamColor + "\n" +
+                "Team Number: " + teamNumber + "\n" +
+                "Team Score: " + teamScore + "\n";
+    }
+
 
 }

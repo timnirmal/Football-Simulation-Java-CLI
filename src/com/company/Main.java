@@ -1,7 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 // Football game simulator
 public class Main {
@@ -39,48 +38,50 @@ public class Main {
         // team1.setTeamPlayer(10);
         // team1.setTeamSubstitute(7);
 
-        Player player1 = new Player();
-        player1.setPlayerNumber(1);
-        player1.setName("Player 1");
-        player1.setPlayerPosition("Goalie");
-        player1.setPlayerScore(0);
-        player1.setTeam("Team-1");
+        // Player player1 = new Player();
+        // player1.setPlayerNumber(1);
+        // player1.setName("Player 1");
+        // player1.setPlayerPosition("Goalie");
+        // player1.setPlayerScore(0);
+        // player1.setTeam("Team-1");
 
 
+        // List of colors
+        List<String> colors = new ArrayList<>(Arrays.asList("Red", "Green", "Blue", "White", "Black", "Pink", "Yellow"));
 
-        // Create Team as Team-1
-        Team team1 = new Team();
+        HashMap<String ,Team> teams = new LinkedHashMap<String ,Team>();
 
-        team1.setTeamName("Team-1");
-        team1.setTeamNumber(1);
-        team1.setTeamScore(0);
-        team1.setTeamColor("Red");
-        team1.addPlayer(player1);
+        for (int i = 0; i < 2; i++) {
+            // Create Team as Team-1
+            Team team1 = new Team();
 
-        // Create Team as Team-2
-        Team team2 = new Team();
+            // Get random color from colors
+            int randomColor = (int) (Math.random() * colors.size());
+            String color = colors.get(randomColor);
+            System.out.println("Random color is " + color);
+            // Remove color from colors
+            colors.remove(color);
 
-        team1.setTeamName("Team-1");
-        team1.setTeamNumber(1);
-        team1.setTeamScore(0);
-        team1.setTeamColor("Red");
-        team1.addPlayer(player1);
+            team1.setTeamName("Team-"+i);
+            team1.setTeamNumber(i+1);
+            team1.setTeamScore(0);
+            team1.setTeamColor(color);
 
-        // Create 18 players and add to Team team1
-        for (int i = 0; i < 18; i++) {
-            Player player = new Player();
-            player.setPlayerNumber(i + 1);
-            player.setName("Player " + (i + 1));
-            player.setPlayerPosition("Player");
-            player.setPlayerScore(0);
-            player.setTeam("Team-1");
-            team1.addPlayer(player);
+            // Create 18 players and add to Team team1
+            for (int j = 0; j < 18; j++) {
+                Player player = new Player();
+                player.setPlayerNumber(j + 1);
+                player.setName("Player " + (j + 1));
+                player.setPlayerPosition("Player");
+                player.setPlayerScore(0);
+                player.setTeam("Team-"+i);
+                team1.addPlayer(player);
+            }
+
+            teams.put("Team-"+i, team1);
         }
 
-
-
-
-
+        System.out.println(teams.get("Team-1").getPlayers().get(0).toString());
 
         /*
         // At the end of the second Half Choose winner
