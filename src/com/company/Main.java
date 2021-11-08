@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Football game simulator
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +15,74 @@ public class Main {
         int team2Score = 0;
 
         // Game starts by tossing
-        
+        // A random number is selected from 1 and 2
+        for (int i = 0; i < 10; i++) {
+            int tossWinner = (int) (Math.random() * 2) + 1;
+            System.out.println("Toss Winner is " + tossWinner);
+        }
 
+        // Now team is selected and they can start the game
+
+        // Goalie (1) - Blocking (2) - Passing (3) - Shooting (4)
+        // Defender (4) - Protect
+        // Midfielder (3)
+        // Striker (3)
+
+        // But for now Goalie(1), Player(10) and Substitute(7) are used.
+
+        // Create Team 1
+        // Team team1 = new Team();
+        // team1.setTeamName("Team 1");
+        // team1.setTeamId(1);
+        // team1.setTeamScore(0);
+        // team1.setTeamGoalie(1);
+        // team1.setTeamPlayer(10);
+        // team1.setTeamSubstitute(7);
+
+        Player player1 = new Player();
+        player1.setPlayerNumber(1);
+        player1.setName("Player 1");
+        player1.setPlayerPosition("Goalie");
+        player1.setPlayerScore(0);
+        player1.setTeam("Team-1");
+
+
+
+        // Create Team as Team-1
+        Team team1 = new Team();
+
+        team1.setTeamName("Team-1");
+        team1.setTeamNumber(1);
+        team1.setTeamScore(0);
+        team1.setTeamColor("Red");
+        team1.addPlayer(player1);
+
+        // Create Team as Team-2
+        Team team2 = new Team();
+
+        team1.setTeamName("Team-1");
+        team1.setTeamNumber(1);
+        team1.setTeamScore(0);
+        team1.setTeamColor("Red");
+        team1.addPlayer(player1);
+
+        // Create 18 players and add to Team team1
+        for (int i = 0; i < 18; i++) {
+            Player player = new Player();
+            player.setPlayerNumber(i + 1);
+            player.setName("Player " + (i + 1));
+            player.setPlayerPosition("Player");
+            player.setPlayerScore(0);
+            player.setTeam("Team-1");
+            team1.addPlayer(player);
+        }
+
+
+
+
+
+
+        /*
         // At the end of the second Half Choose winner
         {
             if (team1Score > team2Score) {
@@ -48,6 +117,8 @@ public class Main {
                 }
             }
         }
+
+        */
 
 
     }
