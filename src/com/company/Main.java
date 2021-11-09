@@ -10,18 +10,6 @@ public class Main {
         // Time and First Half | Second Half | Interval
         // Score of Each team
 
-        int team1Score = 0;
-        int team2Score = 0;
-
-        // Game starts by tossing
-        // A random number is selected from 1 and 2
-        for (int i = 0; i < 10; i++) {
-            int tossWinner = (int) (Math.random() * 2) + 1;
-            System.out.println("Toss Winner is " + tossWinner);
-        }
-
-        // Now team is selected and they can start the game
-
         // Goalie (1) - Blocking (2) - Passing (3) - Shooting (4)
         // Defender (4) - Protect
         // Midfielder (3)
@@ -29,21 +17,6 @@ public class Main {
 
         // But for now Goalie(1), Player(10) and Substitute(7) are used.
 
-        // Create Team 1
-        // Team team1 = new Team();
-        // team1.setTeamName("Team 1");
-        // team1.setTeamId(1);
-        // team1.setTeamScore(0);
-        // team1.setTeamGoalie(1);
-        // team1.setTeamPlayer(10);
-        // team1.setTeamSubstitute(7);
-
-        // Player player1 = new Player();
-        // player1.setPlayerNumber(1);
-        // player1.setName("Player 1");
-        // player1.setPlayerPosition("Goalie");
-        // player1.setPlayerScore(0);
-        // player1.setTeam("Team-1");
 
 
         // List of colors
@@ -69,6 +42,9 @@ public class Main {
 
             // Create 18 players and add to Team team1
             for (int j = 0; j < 18; j++) {
+                // Generate random number between 1 and 10
+                int randomNumber = (int) (Math.random() * 10) + 1;
+
                 Player player = new Player();
 
                 player.setName("Player " + (j + 1));
@@ -82,6 +58,7 @@ public class Main {
                     player.setPlayerPosition("Player");
                 }
                 player.setPlayerScore(0);
+                player.setPlayerSkill(randomNumber);
                 team1.addPlayer(player);
             }
 
@@ -109,6 +86,32 @@ public class Main {
 
         /////// Now 2 Teams are done and added to teams HashMap
 
+
+        int team1Score = 0;
+        int team2Score = 0;
+
+        // Game starts by tossing
+        // A random number is selected from 1 and 2
+        int tossWinner = (int) (Math.random() * 2) + 1;
+        System.out.println("Toss Winner is " + tossWinner);
+
+
+        // Now team is selected and they can start the game
+
+        // But we need to define method to players to play the game
+        // For that each player is assigned skill level (For now it just skill not specified one)
+        // Generate a randrom number from 1 to 10
+        // -> Lets set that at initializing team
+
+        // If that random number is larger than skill level of player then player get a goal
+        // -> Now in each iteration of game, randomly select a player from team and a random number is generated
+
+        // Next
+        // Player skills are seperated into 4 categories
+        // Goalie (1) - Blocking (2) - Passing (3) - Shooting (4)
+        // Defender (4) - Protect
+
+
         // Time begin
         long startTime = System.currentTimeMillis();
 
@@ -117,6 +120,44 @@ public class Main {
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
             // Match Goes Here
+            // Since tosswinner is selected they got the chance to play the match first
+            // Select random player from team1
+            int randomPlayer = (int) (Math.random() * teams.get("Team-"+tossWinner).getPlayers().size());
+
+            // Select random number from 1 to 11
+            int randomNumber = (int) (Math.random() * 11) + 1;
+
+            // if random number is 11
+            if (randomNumber == 11) {
+                // Goal out of the field
+                // So team changes
+
+            }
+            // If random number is greater than player skill then player get a goal
+            if (randomNumber < teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSkill()) {
+                // Player get a goal
+                teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerScore(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerScore() + 1);
+
+                // Team in teams HashMap set teamscore by 1
+                teams.get("Team-"+tossWinner).setTeamScore(teams.get("Team-"+tossWinner).getTeamScore() + 1);
+
+                // Team score is incremented
+                if (tossWinner == 1) {
+                    team1Score++;
+                }
+                else {
+                    team2Score++;
+                }
+
+                // Print player name and score
+                System.out.println(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " scored a goal");
+
+                // Print team score
+                System.out.println("Team-"+tossWinner + " score is " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerScore());
+            }
+            else {
+
+            }
 
         }
 
