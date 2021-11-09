@@ -5,8 +5,21 @@ import java.util.*;
 // Football game simulator
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        String status = "";
+        String lastGoalPlayedBy = "";
+        // get current time
+        Date date = new Date();
+        long time = date.getTime();
+
+
         // Things in Scorecard
+        // Names of two teams
+        // Number of goals in each team
+        // Last goal played by whom
+        // Period of the game : first half / interval / second half / extra time / penalty shots to end the game
+        // Time to end the game
+
         // Time and First Half | Second Half | Interval
         // Score of Each team
 
@@ -31,11 +44,11 @@ public class Main {
             // Get random color from colors
             int randomColor = (int) (Math.random() * colors.size());
             String color = colors.get(randomColor);
-            System.out.println("Random color is " + color);
+            //System.out.println("Random color is " + color);
             // Remove color from colors
             colors.remove(color);
 
-            team1.setTeamName("Team-"+i);
+            team1.setTeamName("Team-"+(i+1));
             team1.setTeamNumber(i+1);
             team1.setTeamScore(0);
             team1.setTeamColor(color);
@@ -79,12 +92,18 @@ public class Main {
             teams.put("Team-"+(i+1), team1);
         }
 
-        System.out.println(teams.get("Team-1").getPlayers().get(0).toString());
+        //System.out.println(teams.get("Team-1").getPlayers().get(0).toString());
 
         // Print Team-1 size
-        System.out.println("Team-1 size is " + teams.get("Team-1").getPlayers().size());
+        //System.out.println("Team-1 size is " + teams.get("Team-1").getPlayers().size());
 
-        System.out.println("Items in HashMap are " + teams.keySet());
+
+
+
+
+
+
+
         /////// Now 2 Teams are done and added to teams HashMap
 
 
@@ -94,7 +113,7 @@ public class Main {
         // Game starts by tossing
         // A random number is selected from 1 and 2
         int tossWinner = (int) (Math.random() * 2) + 1;
-        System.out.println("Toss Winner is " + tossWinner);
+        System.out.println("\nToss Winner is Team-" + tossWinner);
 
 
         // Now team is selected and they can start the game
@@ -117,13 +136,61 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         //// First Half ////
-        long timeInterval = 5L;
+        status = "First Half";
+        long timeInterval = 20L;
+
+        // Print team1Score and team2Score
+        System.out.println("\nTeam-1 Score is " + team1Score + "  Team-2 Score is " + team2Score);
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
+
             // Match Goes Here
 
-            // Print itemsin hashmap
-            System.out.println("Items in HashMap are " + teams.keySet());
+            //////////////////////////////////////////////////////////////////////// SCORE BOARD ////////////////////////////////////////////////////////////////////////
+
+
+            System.out.print("\t\t\t");
+            // Names of two teams
+            for (String key : teams.keySet()) {
+                //System.out.printf(key + " name is " + teams.get(key).getTeamName());
+                System.out.print(teams.get(key).getTeamName()+"\t\t\t");
+            }
+            System.out.print("\nScore "+"\t\t\t");
+
+
+            // Number of goals in each team
+            for (String key : teams.keySet()) {
+                System.out.print(teams.get(key).getTeamScore()+"\t\t\t");
+            }
+
+            // Last goal played by whom
+            System.out.print("\n\nLast Goal Played By " + lastGoalPlayedBy);
+            // Period of the game : first half / interval / second half / extra time / penalty shots to end the game
+            System.out.print("\nPeriod of Game " + status);
+
+            // Time to end = System.currentTimeMillis() - startTime
+
+            // Time to end the game
+            System.out.println("\nTime to End the Game " + (System.currentTimeMillis() - startTime) + "\n");
+
+
+            //////////////////////////////////////////////////////////////////////// SCORE BOARD ////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             // Since tosswinner is selected they got the chance to play the match first
@@ -145,6 +212,7 @@ public class Main {
                 // Goal out of the field
                 // So team changes
                 tossWinner = (tossWinner == 1) ? 2 : 1;
+                System.out.println("Team-"+tossWinner + " is now Playing");
             }
 
             // If random number is lesser than player skill then player get a goal
@@ -164,20 +232,25 @@ public class Main {
                 }
 
                 // Print player name and score
-                System.out.println(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " scored a goal");
+                lastGoalPlayedBy = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName();
+                System.out.println(lastGoalPlayedBy + " scored a goal");
 
-                // Print team score
-                System.out.println("Team-"+tossWinner + " score is " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerScore());
+
             }
             else {
                 // Player won't get a goal
                 // For now lets change teams after goal
                 tossWinner = (tossWinner == 1) ? 2 : 1;
+                //print team changed
+                System.out.println("No Goal\nTeam-"+tossWinner + " is now Playing");
             }
+            System.out.println("\nTeam-1 Score " + team1Score + "  Team-2 Score " + team2Score);
+            System.out.println("\n");
 
         }
 
-        //// Second Half ////
+        //// Interval ////
+        status = "Interval";
         timeInterval = 150L;
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
@@ -186,6 +259,7 @@ public class Main {
         
         
         //// Second Half ////
+        status = "Second Half";
         timeInterval = 450L;
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
@@ -206,6 +280,7 @@ public class Main {
 
                 // Now additional 15 min time is given for players
                 //// Extra 15 min ////
+                status = "Extra Time";
                 timeInterval = 150L;
 
                 while (System.currentTimeMillis() - startTime < timeInterval) {
@@ -228,6 +303,7 @@ public class Main {
                     int team2Shots = 0;
 
                     // Penalty shootout
+                    status = "Penalty Shootout";
 
                     if (team1Shots > team2Shots) {
                         System.out.println("Team 1 wins!");
@@ -239,6 +315,18 @@ public class Main {
 
                 }
             }
+        }
+
+        System.out.println("Items in HashMap are " + teams.keySet());
+
+        // Print items in hashmap
+        for (String key : teams.keySet()) {
+            System.out.println(key + " " + teams.get(key));
+            System.out.println(teams.get(key).getPlayers());
+            System.out.println(teams.get(key).getCoach());
+            System.out.println(teams.get(key).getDoctor());
+            System.out.println(teams.get(key).toStrings());
+            System.out.println("\n");
         }
 
 
