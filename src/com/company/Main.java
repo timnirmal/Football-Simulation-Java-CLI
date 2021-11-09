@@ -137,10 +137,10 @@ public class Main {
 
         //// First Half ////
         status = "First Half";
-        long timeInterval = 20L;
+        long timeInterval = 50L;
 
         // Print team1Score and team2Score
-        System.out.println("\nTeam-1 Score is " + team1Score + "  Team-2 Score is " + team2Score);
+        //System.out.println("\nTeam-1 Score is " + team1Score + "  Team-2 Score is " + team2Score);
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
 
@@ -195,11 +195,15 @@ public class Main {
 
             // Since tosswinner is selected they got the chance to play the match first
             // Select random player from team1
-            int randomPlayer = (int) (Math.random() * teams.get("Team-"+tossWinner).getPlayers().size());
+            //int randomPlayer = (int) (Math.random() * teams.get("Team-"+tossWinner).getPlayers().size());
 
             // Select random player from team1 except Goalie
             // Fix : Goalie | Player1 is selected (Not sure but need to check)
-            //randomPlayer = (int) (Math.random() * (teams.get("Team-"+tossWinner).getPlayers().size() - 1)) + 1;
+            //int randomPlayer = (int) (Math.random() * (teams.get("Team-"+tossWinner).getPlayers().size() - 1)) + 1;
+
+            // Random number from 1 to 11
+            int randomPlayer = (int) (Math.random() * 10) + 2;
+
 
             // Print random player
             System.out.println("Random player is " + randomPlayer);
@@ -244,7 +248,7 @@ public class Main {
                 //print team changed
                 System.out.println("No Goal\nTeam-"+tossWinner + " is now Playing");
             }
-            System.out.println("\nTeam-1 Score " + team1Score + "  Team-2 Score " + team2Score);
+            //System.out.println("\nTeam-1 Score " + team1Score + "  Team-2 Score " + team2Score);
             System.out.println("\n");
 
         }
