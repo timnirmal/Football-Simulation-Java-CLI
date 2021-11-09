@@ -76,7 +76,7 @@ public class Main {
             doctor.setTeam("Team-"+i);
             team1.setDoctor(doctor);
 
-            teams.put("Team-"+i, team1);
+            teams.put("Team-"+(i+1), team1);
         }
 
         System.out.println(teams.get("Team-1").getPlayers().get(0).toString());
@@ -84,6 +84,7 @@ public class Main {
         // Print Team-1 size
         System.out.println("Team-1 size is " + teams.get("Team-1").getPlayers().size());
 
+        System.out.println("Items in HashMap are " + teams.keySet());
         /////// Now 2 Teams are done and added to teams HashMap
 
 
@@ -116,17 +117,22 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         //// First Half ////
-        long timeInterval = 450L;
+        long timeInterval = 5L;
 
         while (System.currentTimeMillis() - startTime < timeInterval) {
             // Match Goes Here
+
+            // Print itemsin hashmap
+            System.out.println("Items in HashMap are " + teams.keySet());
+
+
             // Since tosswinner is selected they got the chance to play the match first
             // Select random player from team1
             int randomPlayer = (int) (Math.random() * teams.get("Team-"+tossWinner).getPlayers().size());
 
             // Select random player from team1 except Goalie
             // Fix : Goalie | Player1 is selected (Not sure but need to check)
-            randomPlayer = (int) (Math.random() * (teams.get("Team-"+tossWinner).getPlayers().size() - 1)) + 1;
+            //randomPlayer = (int) (Math.random() * (teams.get("Team-"+tossWinner).getPlayers().size() - 1)) + 1;
 
             // Print random player
             System.out.println("Random player is " + randomPlayer);
@@ -140,6 +146,7 @@ public class Main {
                 // So team changes
                 tossWinner = (tossWinner == 1) ? 2 : 1;
             }
+
             // If random number is lesser than player skill then player get a goal
             if (randomNumber < teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSkill()) {
                 // Player get a goal
@@ -167,6 +174,7 @@ public class Main {
                 // For now lets change teams after goal
                 tossWinner = (tossWinner == 1) ? 2 : 1;
             }
+
         }
 
         //// Second Half ////
