@@ -8,6 +8,8 @@ public class Team {
     private String teamColor;
     private int teamNumber;
     private int teamScore;
+    private Coach teamCoach;
+    private Doctor teamDoctor;
 
     List<Player> players = new ArrayList<Player>();
 
@@ -17,6 +19,24 @@ public class Team {
         this.teamName = teamName;
         this.teamColor = teamColor;
         this.teamNumber = teamNumber;
+    }
+
+    // Add doctor to team
+    public void setDoctor(Doctor doctor) {
+        this.teamDoctor = doctor;
+    }
+
+    // Add coach to team
+    public void setCoach(Coach coach) {
+        this.teamCoach = coach;
+    }
+
+    public Doctor getDoctor() {
+        return this.teamDoctor;
+    }
+
+    public Coach getCoach() {
+        return this.teamCoach;
     }
 
     public String getTeamName() {

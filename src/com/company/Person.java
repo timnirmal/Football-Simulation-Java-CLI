@@ -12,7 +12,6 @@ public class Person {
         this.team = team;
     }
 
-
     public String getName() {
         return name;
     }
@@ -35,10 +34,10 @@ public class Person {
 class Player extends Person {
     private int playerNumber;
     private String position;
-    private String noOfGoals;
+    private int noOfGoals;
     private int Skill;
 
-    public Player (String name, String team, int playerNumber, String position, String noOfGoals, int Skill) {
+    public Player (String name, String team, int playerNumber, String position, int noOfGoals, int Skill) {
         super(name, team);
         this.playerNumber = playerNumber;
         this.position = position;
@@ -55,17 +54,19 @@ class Player extends Person {
     }
 
     public void setPlayerNumber(int i) {
+        playerNumber = i;
     }
 
-
-
     public void setPlayerPosition(String goalie) {
+        position = goalie;
     }
 
     public void setPlayerScore(int i) {
+        noOfGoals = i;
     }
 
     public void setPlayerSkill(int i) {
+        Skill = i;
     }
 
     public int getPlayerNumber() {
@@ -93,15 +94,19 @@ class Player extends Person {
 
 }
 
-class couches extends Person {
+class Coach extends Person {
+    // Only one coach per team
 }
 
-class doctors extends Person {
-
+class Doctor extends Person {
+    // Only one doctor per team
 }
 
 // Refree Details are not nessesary
-class referees {}
+class referees {
+    // There are 5 Referees
+    // 1 Main and 4 Corners
+}
 
 
 

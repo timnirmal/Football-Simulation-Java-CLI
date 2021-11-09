@@ -70,18 +70,65 @@ public class Main {
             // Create 18 players and add to Team team1
             for (int j = 0; j < 18; j++) {
                 Player player = new Player();
-                player.setPlayerNumber(j + 1);
+
                 player.setName("Player " + (j + 1));
-                player.setPlayerPosition("Player");
-                player.setPlayerScore(0);
                 player.setTeam("Team-"+i);
+                player.setPlayerNumber(j + 1);
+                // 12 - 18 players positions is substitute
+                if (j >= 12) {
+                    player.setPlayerPosition("Substitute");
+                }
+                else {
+                    player.setPlayerPosition("Player");
+                }
+                player.setPlayerScore(0);
                 team1.addPlayer(player);
             }
+
+            // Change Player1 as Goalie
+            team1.getPlayers().get(0).setPlayerPosition("Goalie");
+
+            // add Coach and Doctor for team1
+            Coach coach = new Coach();
+            coach.setName("Coach");
+            coach.setTeam("Team-"+i);
+            team1.setCoach(coach);
+
+            Doctor doctor = new Doctor();
+            doctor.setName("Doctor");
+            doctor.setTeam("Team-"+i);
+            team1.setDoctor(doctor);
 
             teams.put("Team-"+i, team1);
         }
 
         System.out.println(teams.get("Team-1").getPlayers().get(0).toString());
+
+        // Print Team-1 size
+        System.out.println("Team-1 size is " + teams.get("Team-1").getPlayers().size());
+
+        /////// Now 2 Teams are done and added to teams HashMap
+
+        // Time begin
+        long startTime = System.currentTimeMillis();
+
+        //// First Half ////
+        long timeInterval = 900L;
+
+        while (System.currentTimeMillis() - startTime < timeInterval) {
+            // Match Goes Here
+
+        }
+
+        //// Second Half ////
+        timeInterval = 900L;
+
+        while (System.currentTimeMillis() - startTime < timeInterval) {
+            // Match Goes Here
+        }
+
+
+
 
         /*
         // At the end of the second Half Choose winner
@@ -118,7 +165,6 @@ public class Main {
                 }
             }
         }
-
         */
 
 
