@@ -36,6 +36,8 @@ class Player extends Person {
     private String position;
     private int noOfGoals;
     private int Skill;
+    private int xPlayerPosition;
+    private int yPlayerPosition;
 
     public Player (String name, String team, int playerNumber, String position, int noOfGoals, int Skill) {
         super(name, team);
@@ -69,6 +71,14 @@ class Player extends Person {
         Skill = i;
     }
 
+    public void setPlayerPositionX(int i) {
+        xPlayerPosition = i;
+    }
+
+    public void setPlayerPositionY(int i) {
+        yPlayerPosition = i;
+    }
+
     public int getPlayerNumber() {
         return playerNumber;
     }
@@ -85,8 +95,16 @@ class Player extends Person {
         return Skill;
     }
 
+    public int getPlayerPositionX() {
+        return xPlayerPosition;
+    }
+
+    public int getPlayerPositionY() {
+        return yPlayerPosition;
+    }
+
     public String toString() {
-        return "Player: " + name + " " + team + " " + playerNumber + " " + position + " " + noOfGoals + " " + Skill;
+        return "Player: " + name + " " + team + " " + playerNumber + " " + position + " " + noOfGoals + " " + Skill + " " + xPlayerPosition + " " + yPlayerPosition;
     }
 
 

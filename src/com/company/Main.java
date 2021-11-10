@@ -35,92 +35,15 @@ public class Main {
         };
 
 
-        ///////////////////////// Initialize the game //////////////////////////////
-
-        // (17,9) -> X
-        matrix[9][17] = 'X';
-
-        // for 9 with 3 , 6, 14, 17
-
-        // (9,3) -> X
-        matrix[3][9] = 'X';
-
-        // (9, 6) -> X
-        matrix[6][9] = 'X';
-
-        // (9, 14) -> X
-        matrix[14][9] = 'X';
-
-        // (9, 17) -> X
-        matrix[17][9] = 'X';
-
-
-        // for 12 with 3, 6, 14, 17
-
-        // (12,3) -> X
-        matrix[3][12] = 'X';
-
-        // (12, 6) -> X
-        matrix[6][12] = 'X';
-
-        // (9, 14) -> X
-        matrix[14][12] = 'X';
-
-        // (9, 17) -> X
-        matrix[17][12] = 'X';
-
-        // for 15 with 15 19
-
-        // (15,15) -> X
-        matrix[5][15] = 'X';
-
-        // (15,19) -> X
-        matrix[15][19] = 'X';
-
-
-        // for 5 with 15 19
-
-        // (5,15) -> O
-        matrix[5][15] = 'O';
-
-        // (5,19) -> O
-        matrix[15][19] = 'O';
-
-
-        ///////// For next side
-
-        // for 25 with 3, 6, 14, 17
-
-        // (3, 25) -> O
-        matrix[3][25] = 'O';
-
-        // (6, 25) -> O
-        matrix[6][25] = 'O';
-
-        // (14, 25) -> O
-        matrix[14][25] = 'O';
-
-        // (17, 25) -> O
-        matrix[17][25] = 'O';
-
-        // for 22 with 3, 6, 14, 17
-
-        // (3, 22) -> O
-        matrix[3][22] = 'O';
-
-        // (6, 22) -> O
-        matrix[6][22] = 'O';
-
-        // (14, 22) -> O
-        matrix[14][22] = 'O';
-
-        // (17, 22) -> O
-        matrix[17][22] = 'O';
 
 
 
 
+        // Goal Postion x and y
+        int goalX = 17;
+        int goalY = 10;
 
+        matrix[goalY][goalX] = 'G';
 
 
 
@@ -224,6 +147,148 @@ public class Main {
         //System.out.println("Team-1 size is " + teams.get("Team-1").getPlayers().size());
 
 
+        ///////////////////////// Initialize the game //////////////////////////////
+
+        {
+            // For team 1
+
+            // (17,9) -> X (Goalie)
+
+            matrix[9][17] = 'X';
+            // set Player 1 object in team-1 Xposition and yposition
+            teams.get("Team-1").getPlayers().get(0).setPlayerPositionX(17);
+            teams.get("Team-1").getPlayers().get(0).setPlayerPositionY(9);
+
+            // for 9 with 3 , 6, 14, 17 (Players - Back)
+
+            // (9,3) -> X
+            matrix[3][9] = 'X';
+            teams.get("Team-1").getPlayers().get(1).setPlayerPositionX(9);
+            teams.get("Team-1").getPlayers().get(1).setPlayerPositionY(3);
+
+            // (9, 6) -> X
+            matrix[6][9] = 'X';
+            teams.get("Team-1").getPlayers().get(2).setPlayerPositionX(9);
+            teams.get("Team-1").getPlayers().get(2).setPlayerPositionY(6);
+
+
+            // (9, 14) -> X
+            matrix[14][9] = 'X';
+            teams.get("Team-1").getPlayers().get(3).setPlayerPositionX(9);
+            teams.get("Team-1").getPlayers().get(3).setPlayerPositionY(14);
+
+            // (9, 17) -> X
+            matrix[17][9] = 'X';
+            teams.get("Team-1").getPlayers().get(4).setPlayerPositionX(9);
+            teams.get("Team-1").getPlayers().get(4).setPlayerPositionY(17);
+
+
+            // for 12 with 3, 6, 14, 17 (Players - Front)
+
+            // (12,3) -> X
+            matrix[3][12] = 'X';
+            teams.get("Team-1").getPlayers().get(5).setPlayerPositionX(12);
+            teams.get("Team-1").getPlayers().get(5).setPlayerPositionY(3);
+
+            // (12, 6) -> X
+            matrix[6][12] = 'X';
+            teams.get("Team-1").getPlayers().get(6).setPlayerPositionX(12);
+            teams.get("Team-1").getPlayers().get(6).setPlayerPositionY(6);
+
+            // (12, 14) -> X
+            matrix[14][12] = 'X';
+            teams.get("Team-1").getPlayers().get(7).setPlayerPositionX(12);
+            teams.get("Team-1").getPlayers().get(7).setPlayerPositionY(14);
+
+            // (12, 17) -> X
+            matrix[17][12] = 'X';
+            teams.get("Team-1").getPlayers().get(8).setPlayerPositionX(12);
+            teams.get("Team-1").getPlayers().get(8).setPlayerPositionY(17);
+
+            // for 15 with 15 19 (Players - Striker)
+
+            // (5,15) -> X
+            matrix[5][15] = 'X';
+            teams.get("Team-1").getPlayers().get(9).setPlayerPositionX(15);
+            teams.get("Team-1").getPlayers().get(9).setPlayerPositionY(5);
+
+            // (15,15) -> X
+            matrix[15][15] = 'X';
+            teams.get("Team-1").getPlayers().get(10).setPlayerPositionX(15);
+            teams.get("Team-1").getPlayers().get(10).setPlayerPositionY(15);
+
+
+
+
+            ////// For Team 2 //////
+
+            // (17,11) -> O (Goalie)
+
+            matrix[11][17] = 'O';
+            // set Player 1 object in team-1 Xposition and yposition
+            teams.get("Team-2").getPlayers().get(0).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(0).setPlayerPositionY(11);
+
+
+            // for 5 with 15 19 (Players - Striker)
+
+            // (19,5) -> O
+            matrix[5][19] = 'O';
+            teams.get("Team-2").getPlayers().get(1).setPlayerPositionX(19);
+            teams.get("Team-2").getPlayers().get(1).setPlayerPositionY(5);
+
+            // (19,15) -> O
+            matrix[15][19] = 'O';
+            teams.get("Team-2").getPlayers().get(2).setPlayerPositionX(19);
+            teams.get("Team-2").getPlayers().get(2).setPlayerPositionY(15);
+
+
+            // for 25 with 3, 6, 14, 17 (Players - Back)
+
+            // (3, 25) -> O
+            matrix[3][25] = 'O';
+            teams.get("Team-2").getPlayers().get(3).setPlayerPositionX(3);
+            teams.get("Team-2").getPlayers().get(3).setPlayerPositionY(25);
+
+
+            // (6, 25) -> O
+            matrix[6][25] = 'O';
+            teams.get("Team-2").getPlayers().get(4).setPlayerPositionX(6);
+            teams.get("Team-2").getPlayers().get(4).setPlayerPositionY(25);
+
+            // (14, 25) -> O
+            matrix[14][25] = 'O';
+            teams.get("Team-2").getPlayers().get(5).setPlayerPositionX(14);
+            teams.get("Team-2").getPlayers().get(5).setPlayerPositionY(25);
+
+            // (17, 25) -> O
+            matrix[17][25] = 'O';
+            teams.get("Team-2").getPlayers().get(6).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(6).setPlayerPositionY(25);
+
+            // for 22 with 3, 6, 14, 17 (Players - Front)
+
+            // (3, 22) -> O
+            matrix[3][22] = 'O';
+            teams.get("Team-2").getPlayers().get(7).setPlayerPositionX(3);
+            teams.get("Team-2").getPlayers().get(7).setPlayerPositionY(22);
+
+            // (6, 22) -> O
+            matrix[6][22] = 'O';
+            teams.get("Team-2").getPlayers().get(8).setPlayerPositionX(6);
+            teams.get("Team-2").getPlayers().get(8).setPlayerPositionY(22);
+
+            // (14, 22) -> O
+            matrix[14][22] = 'O';
+            teams.get("Team-2").getPlayers().get(9).setPlayerPositionX(14);
+            teams.get("Team-2").getPlayers().get(9).setPlayerPositionY(22);
+
+            // (17, 22) -> O
+            matrix[17][22] = 'O';
+            teams.get("Team-2").getPlayers().get(10).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(10).setPlayerPositionY(22);
+
+        }
 
 
 
