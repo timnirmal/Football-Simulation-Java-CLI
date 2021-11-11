@@ -105,7 +105,8 @@ public class Main {
             // Create 18 players and add to Team team1
             for (int j = 0; j < 18; j++) {
                 // Generate random number between 1 and 10
-                int randomNumber = (int) (Math.random() * 10) + 1;
+                int kickSkill = (int) (Math.random() * 10) + 4;
+                int speedSkill = (int) (Math.random() * 10) + 2;
 
                 Player player = new Player();
 
@@ -120,12 +121,15 @@ public class Main {
                     player.setPlayerPosition("Player");
                 }
                 player.setPlayerScore(0);
-                player.setPlayerSkill(randomNumber);
+                player.setPlayerKickSkill(kickSkill);
+                player.setPlayerSpeedSkill(speedSkill);
                 team1.addPlayer(player);
             }
 
             // Change Player1 as Goalie
             team1.getPlayers().get(0).setPlayerPosition("Goalie");
+            // Change Player2 as Main Striker
+            team1.getPlayers().get(11).setPlayerPosition("MainStriker");
 
             // add Coach and Doctor for team1
             Coach coach = new Coach();
@@ -152,12 +156,18 @@ public class Main {
         {
             // For team 1
 
-            // (17,9) -> X (Goalie)
+            // (2,10) -> X (Goalie)
+            matrix[10][2] = 'X';
+            teams.get("Team-1").getPlayers().get(0).setPlayerPositionX(2);
+            teams.get("Team-1").getPlayers().get(0).setPlayerPositionY(10);
+
+            
+            // (17,9) -> X (Main Sticker - Initial Kick)
 
             matrix[9][17] = 'X';
             // set Player 1 object in team-1 Xposition and yposition
-            teams.get("Team-1").getPlayers().get(0).setPlayerPositionX(17);
-            teams.get("Team-1").getPlayers().get(0).setPlayerPositionY(9);
+            teams.get("Team-1").getPlayers().get(10).setPlayerPositionX(17);
+            teams.get("Team-1").getPlayers().get(10).setPlayerPositionY(9);
 
             // for 9 with 3 , 6, 14, 17 (Players - Back)
 
@@ -213,80 +223,85 @@ public class Main {
             teams.get("Team-1").getPlayers().get(9).setPlayerPositionY(5);
 
             // (15,15) -> X
-            matrix[15][15] = 'X';
-            teams.get("Team-1").getPlayers().get(10).setPlayerPositionX(15);
-            teams.get("Team-1").getPlayers().get(10).setPlayerPositionY(15);
+            //matrix[15][15] = 'X';
+            //teams.get("Team-1").getPlayers().get(10).setPlayerPositionX(15);
+            //teams.get("Team-1").getPlayers().get(10).setPlayerPositionY(15);
 
 
 
 
             ////// For Team 2 //////
 
-            // (17,11) -> O (Goalie)
+            // (32,10) -> X (Goalie)
+            matrix[10][32] = 'O';
+            teams.get("Team-2").getPlayers().get(0).setPlayerPositionX(32);
+            teams.get("Team-2").getPlayers().get(0).setPlayerPositionY(10);
+
+            // (17,11) -> O (Main Sticker - Initial Kick)
 
             matrix[11][17] = 'O';
             // set Player 1 object in team-1 Xposition and yposition
-            teams.get("Team-2").getPlayers().get(0).setPlayerPositionX(17);
-            teams.get("Team-2").getPlayers().get(0).setPlayerPositionY(11);
-
-
-            // for 5 with 15 19 (Players - Striker)
-
-            // (19,5) -> O
-            matrix[5][19] = 'O';
-            teams.get("Team-2").getPlayers().get(1).setPlayerPositionX(19);
-            teams.get("Team-2").getPlayers().get(1).setPlayerPositionY(5);
-
-            // (19,15) -> O
-            matrix[15][19] = 'O';
-            teams.get("Team-2").getPlayers().get(2).setPlayerPositionX(19);
-            teams.get("Team-2").getPlayers().get(2).setPlayerPositionY(15);
-
+            teams.get("Team-2").getPlayers().get(10).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(10).setPlayerPositionY(11);
 
             // for 25 with 3, 6, 14, 17 (Players - Back)
 
             // (3, 25) -> O
             matrix[3][25] = 'O';
-            teams.get("Team-2").getPlayers().get(3).setPlayerPositionX(3);
-            teams.get("Team-2").getPlayers().get(3).setPlayerPositionY(25);
+            teams.get("Team-2").getPlayers().get(1).setPlayerPositionX(3);
+            teams.get("Team-2").getPlayers().get(1).setPlayerPositionY(25);
 
 
             // (6, 25) -> O
             matrix[6][25] = 'O';
-            teams.get("Team-2").getPlayers().get(4).setPlayerPositionX(6);
-            teams.get("Team-2").getPlayers().get(4).setPlayerPositionY(25);
+            teams.get("Team-2").getPlayers().get(2).setPlayerPositionX(6);
+            teams.get("Team-2").getPlayers().get(2).setPlayerPositionY(25);
 
             // (14, 25) -> O
             matrix[14][25] = 'O';
-            teams.get("Team-2").getPlayers().get(5).setPlayerPositionX(14);
-            teams.get("Team-2").getPlayers().get(5).setPlayerPositionY(25);
+            teams.get("Team-2").getPlayers().get(3).setPlayerPositionX(14);
+            teams.get("Team-2").getPlayers().get(3).setPlayerPositionY(25);
 
             // (17, 25) -> O
             matrix[17][25] = 'O';
-            teams.get("Team-2").getPlayers().get(6).setPlayerPositionX(17);
-            teams.get("Team-2").getPlayers().get(6).setPlayerPositionY(25);
+            teams.get("Team-2").getPlayers().get(4).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(4).setPlayerPositionY(25);
 
             // for 22 with 3, 6, 14, 17 (Players - Front)
 
             // (3, 22) -> O
             matrix[3][22] = 'O';
-            teams.get("Team-2").getPlayers().get(7).setPlayerPositionX(3);
-            teams.get("Team-2").getPlayers().get(7).setPlayerPositionY(22);
+            teams.get("Team-2").getPlayers().get(5).setPlayerPositionX(3);
+            teams.get("Team-2").getPlayers().get(5).setPlayerPositionY(22);
 
             // (6, 22) -> O
             matrix[6][22] = 'O';
-            teams.get("Team-2").getPlayers().get(8).setPlayerPositionX(6);
-            teams.get("Team-2").getPlayers().get(8).setPlayerPositionY(22);
+            teams.get("Team-2").getPlayers().get(6).setPlayerPositionX(6);
+            teams.get("Team-2").getPlayers().get(6).setPlayerPositionY(22);
 
             // (14, 22) -> O
             matrix[14][22] = 'O';
-            teams.get("Team-2").getPlayers().get(9).setPlayerPositionX(14);
-            teams.get("Team-2").getPlayers().get(9).setPlayerPositionY(22);
+            teams.get("Team-2").getPlayers().get(7).setPlayerPositionX(14);
+            teams.get("Team-2").getPlayers().get(7).setPlayerPositionY(22);
 
             // (17, 22) -> O
             matrix[17][22] = 'O';
-            teams.get("Team-2").getPlayers().get(10).setPlayerPositionX(17);
-            teams.get("Team-2").getPlayers().get(10).setPlayerPositionY(22);
+            teams.get("Team-2").getPlayers().get(8).setPlayerPositionX(17);
+            teams.get("Team-2").getPlayers().get(8).setPlayerPositionY(22);
+
+
+            // for 5 with 15 19 (Players - Striker)
+
+            // (19,5) -> O
+            //matrix[5][19] = 'O';
+            //teams.get("Team-2").getPlayers().get(9).setPlayerPositionX(19);
+            //teams.get("Team-2").getPlayers().get(9).setPlayerPositionY(5);
+
+            // (19,15) -> O
+            matrix[15][19] = 'O';
+            teams.get("Team-2").getPlayers().get(9).setPlayerPositionX(19);
+            teams.get("Team-2").getPlayers().get(9).setPlayerPositionY(15);
+
 
         }
 
@@ -306,6 +321,7 @@ public class Main {
         int tossWinner = (int) (Math.random() * 2) + 1;
         System.out.println("\nToss Winner is Team-" + tossWinner);
 
+        boolean initialKick = true;
 
         // Now team is selected and they can start the game
 
@@ -392,8 +408,108 @@ public class Main {
             // Fix : Goalie | Player1 is selected (Not sure but need to check)
             //int randomPlayer = (int) (Math.random() * (teams.get("Team-"+tossWinner).getPlayers().size() - 1)) + 1;
 
+            int randomPlayer;
+            int xDirection;
+
             // Random number from 1 to 11
-            int randomPlayer = (int) (Math.random() * 10) + 2;
+
+            //
+            if (initialKick) {
+                randomPlayer = 10;
+                initialKick = false;
+
+                //===================================================== INITIAL KICK ======================================================//
+
+                // Player 1 of team- + tosswiner get Xposition
+                System.out.println("\nInitial Kick " );
+
+                // Team 1 is X and Team 2 is Y
+                // Team 1 is in -x direction and Team 2 is in +x direction
+                // So Team 1 will kick in the +x direction and Team 2 will kick in the -x direction
+                // But since this is initial kick, direction changes and to randomly picked player
+
+                randomPlayer = 10;
+
+                // We need players 10 kicking skill
+                System.out.println(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill());
+
+                // This is X amount ball moves in Y direction
+                //MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(10).getPlayerKickSkill());
+
+                // This is X amount ball moves in X direction
+                //MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(10).getPlayerKickSkill());
+
+                // If tema- tosswinner is 1 then
+                if (tossWinner == 1) {
+                    xDirection = -1;
+                }
+                else {
+                    xDirection = 1;
+                }
+
+                // Clear current ball position
+                matrix[goalY][goalX] = ' ';
+
+                // Move ball in X direction
+                goalX = goalX + (xDirection * MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill()));
+                // Move ball in Y direction
+                goalY = goalY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill());
+
+                // Print goal position
+                matrix[goalY][goalX] = 'G';
+
+                //===================================================== INITIAL KICK ======================================================//
+
+                // print matrix
+                for (int i = 0; i < matrix.length; i++) {
+                    for (int j = 0; j < matrix[i].length; j++) {
+                        System.out.print(matrix[i][j]+" ");
+                    }
+                    System.out.println();
+                }
+
+                // Sleep for 2 seconds
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //===================================================== PLAYER MOVEMENT ======================================================//
+
+                // Players current position
+                int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
+                int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
+
+                // Players new position
+                int newPlayerX = playerX + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+                int newPlayerY = playerY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+
+                // Set new positions for player
+                teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(newPlayerX);
+                teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionY(newPlayerY);
+
+                // Display new positions
+                System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
+
+                // Clear matrix[playrey][playerx] position
+                matrix[playerY][playerX] = ' ';
+
+                // If team- tosswinner is 1 then
+                if (tossWinner == 1) {
+
+                    matrix[newPlayerY][newPlayerX] = 'X';
+                }
+                else {
+                    matrix[newPlayerY][newPlayerX] = 'O';
+                }
+
+                //===================================================== PLAYER MOVEMENT ======================================================//
+
+            }
+            else {
+                randomPlayer = (int) (Math.random() * 10) + 2;
+            }
 
 
             // Print random player
@@ -411,7 +527,7 @@ public class Main {
             }
 
             // If random number is lesser than player skill then player get a goal
-            if (randomNumber < teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSkill()) {
+            if (randomNumber < teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill()) {
                 // Player get a goal
                 teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerScore(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerScore() + 1);
 
@@ -429,6 +545,26 @@ public class Main {
                 // Print player name and score
                 lastGoalPlayedBy = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName();
                 System.out.println(lastGoalPlayedBy + " scored a goal");
+
+                // Change team-tosswinner team player randomplayer xposition yposition
+                teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(6);
+
+
+                // We need to set up initial kick
+
+                // Get the ball current position
+                // Find the closet player from each team
+                // Evaluate the time taken to reach ball by distance and speed
+                // kick the ball by distance of his kick skill
+                // Repeat this
+
+                // If goal goes out of the field then team changes
+
+                // Kick direction is the goal area x and y direction.
+
+                // Move direction is the ball current position x and y direction.
+
+
 
 
 
@@ -456,6 +592,14 @@ public class Main {
             System.out.println("\n");
 
         }
+
+
+
+
+
+
+
+
 
         //// Interval ////
         status = "Interval";
@@ -544,6 +688,23 @@ public class Main {
 
         // Length = 16(64) + some value (13)
         // Width = 11(44) + some value (8)
+    }
+
+    private static int MovementGenerator(int playerSkill) {
+        // Then lets get randomMultiplier from 7 to 10
+        int randomMultiplier = (int) (Math.random() * 4) + 7;
+
+        // Movement length will be equal to player kicking skill * randomMultiplier / 30
+        float movementLength = (float) (playerSkill * randomMultiplier / 30);
+
+        // round movementLength to nearest integer
+        movementLength = (float) Math.round(movementLength);
+
+        // Print movementLength Fix : Delete :
+        System.out.println("Movement Length " + movementLength);
+
+        // Return movementLength
+        return (int) movementLength;
     }
 }
 

@@ -36,6 +36,8 @@ class Player extends Person {
     private String position;
     private int noOfGoals;
     private int Skill;
+    private int KickSkill;
+    private int SpeedSkill;
     private int xPlayerPosition;
     private int yPlayerPosition;
 
@@ -79,6 +81,14 @@ class Player extends Person {
         yPlayerPosition = i;
     }
 
+    public void setPlayerKickSkill(int i) {
+        KickSkill = i;
+    }
+
+    public void setPlayerSpeedSkill(int i) {
+        SpeedSkill = i;
+    }
+
     public int getPlayerNumber() {
         return playerNumber;
     }
@@ -101,6 +111,14 @@ class Player extends Person {
 
     public int getPlayerPositionY() {
         return yPlayerPosition;
+    }
+
+    public int getPlayerKickSkill() {
+        return KickSkill;
+    }
+
+    public int getPlayerSpeedSkill() {
+        return SpeedSkill;
     }
 
     public String toString() {
