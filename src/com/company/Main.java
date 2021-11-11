@@ -344,7 +344,7 @@ public class Main {
 
         //// First Half ////
         status = "First Half";
-        long timeInterval = 50L;
+        long timeInterval = 100L;
 
         // Print team1Score and team2Score
         //System.out.println("\nTeam-1 Score is " + team1Score + "  Team-2 Score is " + team2Score);
@@ -410,6 +410,18 @@ public class Main {
 
             int randomPlayer;
             int xDirection;
+            char tossWinnerChar;
+            int playingTeam = tossWinner;
+
+            // If tema- tosswinner is 1 then
+            if (tossWinner == 1) {
+                xDirection = 1;
+                tossWinnerChar = 'X';
+            }
+            else {
+                xDirection = -1;
+                tossWinnerChar = 'O';
+            }
 
             // Random number from 1 to 11
 
@@ -439,19 +451,13 @@ public class Main {
                 // This is X amount ball moves in X direction
                 //MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(10).getPlayerKickSkill());
 
-                // If tema- tosswinner is 1 then
-                if (tossWinner == 1) {
-                    xDirection = -1;
-                }
-                else {
-                    xDirection = 1;
-                }
 
                 // Clear current ball position
                 matrix[goalY][goalX] = ' ';
 
                 // Move ball in X direction
-                goalX = goalX + (xDirection * MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill()));
+                // Only for initial kick xDirection will be changed
+                goalX = goalX - (xDirection * MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill()));
                 // Move ball in Y direction
                 goalY = goalY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill());
 
@@ -468,12 +474,14 @@ public class Main {
                     System.out.println();
                 }
 
+                /*
                 // Sleep for 2 seconds
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                */
 
                 //===================================================== PLAYER MOVEMENT ======================================================//
 
@@ -509,11 +517,234 @@ public class Main {
             }
             else {
                 randomPlayer = (int) (Math.random() * 10) + 2;
+
+                // Select the closet players from each team.
+
+                // Create hashmap of distance and player id
+                HashMap<Double, Integer> playerDistance = new HashMap<Double, Integer>();
+
+                // clear hashmap
+                playerDistance.clear();
+
+                // Print gaol position
+                System.out.println("Goal position " + goalX + " " + goalY + "\n");
+
+
+
+
+
+
+                // For each player in team 1
+                for (int i = 1; i < 11; i++) {
+                    // Get xpositions
+                    int playerX = teams.get("Team-1").getPlayers().get(i).getPlayerPositionX();
+                    int playerY = teams.get("Team-1").getPlayers().get(i).getPlayerPositionY();
+
+                    // distance from goal
+                    //int pyth = (Math.abs(playerX - goalX)) ^ 2 + (Math.abs(playerY - goalY)) ^ 2;
+                    int pyth = ((Math.abs(playerX - goalX) ^ 2) + (Math.abs(playerY - goalY) ^ 2));
+                    double distance = Math.sqrt(pyth);
+
+
+                    //Player Number
+                    int playerId = teams.get("Team-1").getPlayers().get(i).getPlayerNumber();
+
+                    /*
+
+                        System.out.println("Player " + (i+1) + " position " + playerX + " " + playerY);
+                        System.out.println(Math.abs(playerX - goalX));
+                        System.out.println((Math.abs(playerX - goalX)^2));
+                        System.out.println(Math.abs(playerY - goalY));
+                        System.out.println((Math.abs(playerY - goalY)^2));
+                        System.out.println(((Math.abs(playerX - goalX)^2) + (Math.abs(playerY - goalY)^2)));
+                        System.out.println("Double " + pyth);
+                        System.out.println("Double " + ((Math.abs(playerX - goalX)^2) + (Math.abs(playerY - goalY)^2)));
+
+                        //convert int to double
+                        double pythDouble = pyth;
+
+                        System.out.println("Double " + pythDouble);
+                        System.out.println(Math.sqrt(pyth));
+                        //System.out.println(squareRoot(pyth, 0.00001));
+                    */
+
+                    // Print distance
+                    System.out.println("Distance from goal " + distance + " for player " + playerId + " at position " + playerX + " " + playerY);
+
+                    //add distance and player id to hashmap
+                    playerDistance.put(distance, playerId);
+                }
+
+                // Print hashmap
+                System.out.println(playerDistance);
+
+                // Sort hash map by distance
+                List<Double> distanceList = new ArrayList<Double>(playerDistance.keySet());
+
+                Collections.sort(distanceList);
+                // Get lowest distance from distance list
+                double lowestDistance = distanceList.get(0);
+
+                // Get player id from lowest distance
+                int playerIdTeam1 = playerDistance.get(lowestDistance);
+
+                // Print player id
+                System.out.println("Player " + playerIdTeam1 + " is the closest to the goal And " + lowestDistance);
+
+
+                // Create hashmap of distance and player id
+                HashMap<Double, Integer> playerDistance2 = new HashMap<Double, Integer>();
+
+                // clear hashmap
+                playerDistance2.clear();
+
+
+                // For team 2
+                for (int i = 1; i < 11; i++) {
+                    // Get xpositions
+                    int playerX = teams.get("Team-2").getPlayers().get(i).getPlayerPositionX();
+                    int playerY = teams.get("Team-2").getPlayers().get(i).getPlayerPositionY();
+
+                    // distance from goal
+                    //int pyth = (Math.abs(playerX - goalX)) ^ 2 + (Math.abs(playerY - goalY)) ^ 2;
+                    int pyth = ((Math.abs(playerX - goalX) ^ 2) + (Math.abs(playerY - goalY) ^ 2));
+                    double distance = Math.sqrt(pyth);
+
+
+                    //Player Number
+                    int playerId = teams.get("Team-2").getPlayers().get(i).getPlayerNumber();
+
+                    /*
+
+                        System.out.println("Player " + (i+1) + " position " + playerX + " " + playerY);
+                        System.out.println(Math.abs(playerX - goalX));
+                        System.out.println((Math.abs(playerX - goalX)^2));
+                        System.out.println(Math.abs(playerY - goalY));
+                        System.out.println((Math.abs(playerY - goalY)^2));
+                        System.out.println(((Math.abs(playerX - goalX)^2) + (Math.abs(playerY - goalY)^2)));
+                        System.out.println("Double " + pyth);
+                        System.out.println("Double " + ((Math.abs(playerX - goalX)^2) + (Math.abs(playerY - goalY)^2)));
+
+                        //convert int to double
+                        double pythDouble = pyth;
+
+                        System.out.println("Double " + pythDouble);
+                        System.out.println(Math.sqrt(pyth));
+                        //System.out.println(squareRoot(pyth, 0.00001));
+                    */
+
+                    // Print distance
+                    System.out.println("Distance from goal " + distance + " for player " + playerId + " at position " + playerX + " " + playerY);
+
+                    //add distance and player id to hashmap
+                    playerDistance2.put(distance, playerId);
+                }
+
+                // Print hashmap
+                System.out.println(playerDistance2);
+
+                // Sort hash map by distance
+                List<Double> distanceList2 = new ArrayList<Double>(playerDistance2.keySet());
+                Collections.sort(distanceList);
+                // Get lowest distance from distance list
+                double lowestDistance2 = distanceList2.get(0);
+
+                // Get player id from lowest distance
+                int playerIdTeam2 = playerDistance2.get(lowestDistance2);
+
+                // Print player id
+                System.out.println("Player " + playerIdTeam2 + " is the closest to the goal And " + lowestDistance2);
+
+
+                ///// Now pick the Closet player
+
+                if (lowestDistance < lowestDistance2) {
+                    System.out.println("Team 1 is the closest to the goal");
+                    System.out.println("Player " + playerIdTeam1 + " is the closest to the goal");
+                    randomPlayer = playerIdTeam1;
+                    playingTeam = 1;
+                }
+                else if (lowestDistance2 < lowestDistance) {
+                    System.out.println("Team 2 is the closest to the goal");
+                    System.out.println("Player " + playerIdTeam2 + " is the closest to the goal");
+                    randomPlayer = playerIdTeam2;
+                    playingTeam = 2;
+                }
+                else {
+                    System.out.println("Both teams are equally close to the goal. No Goal");
+                    continue;
+                }
+
             }
 
 
             // Print random player
             System.out.println("Random player is " + randomPlayer);
+
+            // Now we have the closet player to the goal from the two teams. And Team 1 or Team 2
+
+            // Clear current ball position
+            matrix[goalY][goalX] = ' ';
+
+            // Move ball in X direction
+            // Only for initial kick xDirection will be changed
+            goalX = goalX - (xDirection * MovementGenerator(teams.get("Team-"+playingTeam).getPlayers().get(randomPlayer).getPlayerKickSkill()));
+            // Move ball in Y direction
+            goalY = goalY + MovementGenerator(teams.get("Team-"+playingTeam).getPlayers().get(randomPlayer).getPlayerKickSkill());
+
+            // Print goal position
+            matrix[goalY][goalX] = 'G';
+
+            tossWinner = playingTeam;
+            //===================================================== PLAYER MOVEMENT ======================================================//
+
+            // Players current position
+            int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
+            int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
+
+            // Players new position
+            int newPlayerX = playerX + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+            int newPlayerY = playerY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+
+            // Set new positions for player
+            teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(newPlayerX);
+            teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionY(newPlayerY);
+
+            // Display new positions
+            System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
+
+            // Clear matrix[playrey][playerx] position
+            matrix[playerY][playerX] = ' ';
+
+            // If team- tosswinner is 1 then
+            if (tossWinner == 1) {
+
+                matrix[newPlayerY][newPlayerX] = 'X';
+            }
+            else {
+                matrix[newPlayerY][newPlayerX] = 'O';
+            }
+
+            //===================================================== PLAYER MOVEMENT ======================================================//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Select random number from 1 to 11
             int randomNumber = (int) (Math.random() * 11) + 1;
@@ -527,7 +758,8 @@ public class Main {
             }
 
             // If random number is lesser than player skill then player get a goal
-            if (randomNumber < teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerKickSkill()) {
+            if (randomNumber < 100) {
+                /*
                 // Player get a goal
                 teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerScore(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerScore() + 1);
 
@@ -546,8 +778,9 @@ public class Main {
                 lastGoalPlayedBy = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName();
                 System.out.println(lastGoalPlayedBy + " scored a goal");
 
+
                 // Change team-tosswinner team player randomplayer xposition yposition
-                teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(6);
+                //teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(6);
 
 
                 // We need to set up initial kick
@@ -565,8 +798,14 @@ public class Main {
                 // Move direction is the ball current position x and y direction.
 
 
+                //get team-1 player 3 xposition and yposition
+                playerX = teams.get("Team-1").getPlayers().get(3).getPlayerPositionX();
+                playerY = teams.get("Team-1").getPlayers().get(3).getPlayerPositionY();
+
+                //matrix[playerY][playerX] = 'd';
 
 
+             */
 
                 // Change console color
                 System.out.println("\u001B[31m");
@@ -578,6 +817,9 @@ public class Main {
                     }
                     System.out.println();
                 }
+
+                // Clear hashmap
+
 
 
             }
@@ -706,6 +948,64 @@ public class Main {
         // Return movementLength
         return (int) movementLength;
     }
+
+    static double squareRoot(int number, double tolerance) {
+        // Assuming the sqrt of n as n only
+        double x = number;
+
+        // The closed guess will be stored in the root
+        double root;
+
+        // To count the number of iterations
+        int count = 0;
+
+        while (true) {
+            count++;
+
+            // Calculate more closed x
+            root = 0.5 * (x + (number / x));
+
+            // Check for closeness
+            if (Math.abs(root - x) < tolerance)
+                break;
+
+            // Update root
+            x = root;
+        }
+
+        return root;
+    }
+
+
+    static double squareRoot(double number) {
+        double tolerance = 0.00001;
+        // Assuming the sqrt of n as n only
+        double x = number;
+
+        // The closed guess will be stored in the root
+        double root;
+
+        // To count the number of iterations
+        int count = 0;
+
+        while (true) {
+            count++;
+
+            // Calculate more closed x
+            root = 0.5 * (x + (number / x));
+
+            // Check for closeness
+            if (Math.abs(root - x) < tolerance)
+                break;
+
+            // Update root
+            x = root;
+        }
+
+        return root;
+
+    }
+
 }
 
 // Football
