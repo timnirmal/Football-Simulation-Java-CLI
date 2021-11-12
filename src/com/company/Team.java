@@ -13,9 +13,10 @@ public class Team {
 
     List<Player> players = new ArrayList<Player>();
 
-    public Team() {}
+    public Team() {
+    }
 
-    public Team (String teamName, String teamColor, int teamNumber) {
+    public Team(String teamName, String teamColor, int teamNumber) {
         this.teamName = teamName;
         this.teamColor = teamColor;
         this.teamNumber = teamNumber;
@@ -114,6 +115,5 @@ public class Team {
                 "Team Number: " + teamNumber + "\n" +
                 "Team Score: " + teamScore + "\n";
     }
-
 
 }
