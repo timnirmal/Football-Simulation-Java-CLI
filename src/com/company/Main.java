@@ -718,7 +718,7 @@ public class Main {
             // Now we have the closet player to the goal from the two teams. And Team 1 or Team 2
 
             // Clear current ball position
-            matrix[goalY][goalX] = ' ';
+            matrix[goalY-3][goalX-3] = ' ';
 
             // Move ball in X direction
             // Only for initial kick xDirection will be changed
@@ -727,7 +727,7 @@ public class Main {
             goalY = goalY + MovementGenerator(teams.get("Team-"+playingTeam).getPlayers().get(randomPlayer).getPlayerKickSkill());
 
             // Print goal position
-            matrix[goalY][goalX] = 'G';
+            matrix[goalY-5][goalX-5] = 'G';
 
             // Print Random Player Movement
 
