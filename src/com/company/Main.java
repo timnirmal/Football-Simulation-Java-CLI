@@ -711,7 +711,6 @@ public class Main {
 
             }
 
-
             // Print random player
             System.out.println("Random player is " + randomPlayer);
 
