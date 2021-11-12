@@ -410,6 +410,7 @@ public class Main {
 
             int randomPlayer;
             int xDirection;
+            int yDirection;
             char tossWinnerChar;
             int playingTeam = tossWinner;
 
@@ -519,6 +520,11 @@ public class Main {
                 randomPlayer = (int) (Math.random() * 10) + 2;
 
                 // Select the closet players from each team.
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////// CLOSER PLAYER FIND AND DO MOVEMENTS ///////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
                 // Create hashmap of distance and player id
                 HashMap<Double, Integer> playerDistance = new HashMap<Double, Integer>();
@@ -695,40 +701,86 @@ public class Main {
             // Print goal position
             matrix[goalY][goalX] = 'G';
 
+            // Print Random Player Movement
+
             tossWinner = playingTeam;
-            //===================================================== PLAYER MOVEMENT ======================================================//
 
             // Players current position
-            int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
-            int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
+            System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX());
+            System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY());
 
-            // Players new position
-            int newPlayerX = playerX + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
-            int newPlayerY = playerY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
 
-            // Set new positions for player
-            teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(newPlayerX);
-            teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionY(newPlayerY);
+            PlayerMovement(matrix, teams, tossWinner, randomPlayer);
 
-            // Display new positions
-            System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
+            // Players current position
+            System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX());
+            System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY());
 
-            // Clear matrix[playrey][playerx] position
-            matrix[playerY][playerX] = ' ';
+            //////////////////////////////////////////////////////////////////////// CLOSER PLAYER FIND AND DO MOVEMENTS ///////////////////////////////////////////////////
 
-            // If team- tosswinner is 1 then
-            if (tossWinner == 1) {
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                matrix[newPlayerY][newPlayerX] = 'X';
+            //////////////////////////////////////////////////////////////////////// REST OF THE PLAYERS MOVEMENTS /////////////////////////////////////////////////////////
+
+            // Now we need to move rest of the players
+
+
+
+            // playing team
+            // Loop through all players except the random player
+            for (int i = 1; i < 11; i++) {
+
+                if (tossWinner == 1) {
+
+                    // Get player xposition and yposition
+                    int playerX = teams.get("Team-1").getPlayers().get(i).getPlayerPositionX();
+                    int playerY = teams.get("Team-1").getPlayers().get(i).getPlayerPositionY();
+
+                    // player position - goal position
+                    int playerPositionX = playerX - goalX;
+                    int playerPositionY = playerY - goalY;
+
+                    if (playerPositionX < 0 ) {
+                        // Move player to the left
+                        //playerX = playerX - MovementGenerator(teams.get("Team-1").getPlayers().get(i).getPlayerMovementSkill());
+
+                        int weight = 2;
+                        // Player is on the left side of the goal // So should move more wighted right
+                        RandomCollection<Object> rc = new RandomCollection<>().add(weight, 1).add((3-weight), 1);
+
+
+                    }
+
+                    xDirection = 1;
+                }
+                else {
+                    xDirection = -1;
+                }
+
+
+                if (i != randomPlayer) {
+                    // Print for player number
+                    System.out.println("For Player " + i);
+
+                    // Move player
+                    PlayerMovement(matrix, teams, tossWinner, i);
+
+                    // Print Matrix
+                    printMatrix(matrix);
+
+                }
             }
-            else {
-                matrix[newPlayerY][newPlayerX] = 'O';
+
+            // Other team
+            int defendingTeam = tossWinner == 1 ? 2 : 1;
+
+            // For player in other team
+            for (int i = 1; i < 11; i++) {
+                // Move player
+                PlayerMovement(matrix, teams, defendingTeam, i);
+                printMatrix(matrix);
             }
-
-            //===================================================== PLAYER MOVEMENT ======================================================//
-
-
-
 
 
 
@@ -807,16 +859,7 @@ public class Main {
 
              */
 
-                // Change console color
-                System.out.println("\u001B[31m");
-
-                // print matrix
-                for (int i = 0; i < matrix.length; i++) {
-                    for (int j = 0; j < matrix[i].length; j++) {
-                        System.out.print(matrix[i][j]+" ");
-                    }
-                    System.out.println();
-                }
+                printMatrix(matrix);
 
                 // Clear hashmap
 
@@ -932,6 +975,57 @@ public class Main {
         // Width = 11(44) + some value (8)
     }
 
+    private static void printMatrix(char[][] matrix) {
+        // Change console color
+        System.out.println("\u001B[31m");
+
+        // print matrix
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void PlayerMovement(char[][] matrix, HashMap<String, Team> teams, int tossWinner, int randomPlayer) {
+        //===================================================== PLAYER MOVEMENT ======================================================//
+
+        // X and Y direction decide
+        boolean xDirection;
+        boolean yDirection;
+
+        // Get goal positions
+
+        // Players current position
+        int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
+        int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
+
+        // Players new position
+        int newPlayerX = playerX + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+        int newPlayerY = playerY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+
+        // Set new positions for player
+        teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(newPlayerX);
+        teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionY(newPlayerY);
+
+        // Display new positions
+        System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
+
+        // Clear matrix[playrey][playerx] position
+        matrix[playerY][playerX] = ' ';
+
+        // If team- tosswinner is 1 then
+        if (tossWinner == 1) {
+            matrix[newPlayerY][newPlayerX] = 'X';
+        }
+        else {
+            matrix[newPlayerY][newPlayerX] = 'O';
+        }
+
+        //===================================================== PLAYER MOVEMENT ======================================================//
+    }
+
     private static int MovementGenerator(int playerSkill) {
         // Then lets get randomMultiplier from 7 to 10
         int randomMultiplier = (int) (Math.random() * 4) + 7;
@@ -1006,6 +1100,32 @@ public class Main {
 
     }
 
+}
+
+class RandomCollection<E> {
+    private final NavigableMap<Double, E> map = new TreeMap<Double, E>();
+    private final Random random;
+    private double total = 0;
+
+    public RandomCollection() {
+        this(new Random());
+    }
+
+    public RandomCollection(Random random) {
+        this.random = random;
+    }
+
+    public RandomCollection<E> add(double weight, E result) {
+        if (weight <= 0) return this;
+        total += weight;
+        map.put(total, result);
+        return this;
+    }
+
+    public E next() {
+        double value = random.nextDouble() * total;
+        return map.higherEntry(value).getValue();
+    }
 }
 
 // Football
