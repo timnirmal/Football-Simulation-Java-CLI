@@ -357,7 +357,7 @@ public class Main {
 
         //// First Half ////
         status = "First Half";
-        long timeInterval = 100L;
+        long timeInterval = 1000L;
 
         // Print team1Score and team2Score
         //System.out.println("\nTeam-1 Score is " + team1Score + "  Team-2 Score is " + team2Score);
@@ -1091,6 +1091,11 @@ public class Main {
         int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
         int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
 
+        System.out.println("Player X: " + playerX + " Player Y: " + playerY + "Need to change");
+
+        matrix[playerX][playerY] = ' ';
+
+
         // Print current position
         System.out.println("Player " + randomPlayer + " is at " + playerX + " " + playerY);
 
@@ -1157,32 +1162,37 @@ public class Main {
             System.out.println("Error...1111111111111111111..............................");
             System.out.println(newPlayerX);
         }
-        if ( newPlayerX >= matrixSizeY){
+        if ( newPlayerX >= matrixSizeX){
             System.out.println("Error....22222222222222...................................");
             System.out.println(newPlayerX);
-
+            System.out.println(matrixSizeY);
         }
         if (newPlayerY < 0){
             System.out.println("Error....3333333333333......................................");
+            System.out.println(newPlayerY);
         }
-        if (newPlayerY >= matrixSizeX){
+        if (newPlayerY >= matrixSizeY){
             System.out.println("Error.....44444444444444....................................");
+            System.out.println(newPlayerY);
+            System.out.println(matrixSizeX);
         }
 
-
-        matrix[playerY][playerX] = ' ';
-
-        // If team- tosswinner is 1 then
-        if (tossWinner == 1) {
-            matrix[newPlayerY][newPlayerX] = 'X';
-        }
-        else {
-            matrix[newPlayerY][newPlayerX] = 'O';
-        }
+        // Print player position
 
         playerX = newPlayerX;
         playerY = newPlayerY;
 
+        System.out.println("Player " + randomPlayer + " new position " + playerX + " " + playerY + " " + newPlayerX + " " + newPlayerY);
+
+        matrix[newPlayerX][newPlayerY] = ' ';
+
+        // If team- tosswinner is 1 then
+        if (tossWinner == 1) {
+            matrix[newPlayerX][newPlayerY] = 'X';
+        }
+        else {
+            matrix[newPlayerX][newPlayerY] = 'O';
+        }
         //===================================================== PLAYER MOVEMENT ======================================================//
 
 
