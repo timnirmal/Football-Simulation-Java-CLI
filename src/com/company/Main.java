@@ -306,6 +306,19 @@ public class Main {
         }
 
 
+        System.out.println("Items in HashMap are " + teams.keySet());
+
+        // Print items in hashmap
+        for (String key : teams.keySet()) {
+            System.out.println(key + " " + teams.get(key));
+            System.out.println(teams.get(key).getPlayers());
+            System.out.println(teams.get(key).getCoach());
+            System.out.println(teams.get(key).getDoctor());
+            System.out.println(teams.get(key).toStrings());
+            System.out.println("\n");
+        }
+
+
 
 
 
@@ -417,10 +430,12 @@ public class Main {
             // If tema- tosswinner is 1 then
             if (tossWinner == 1) {
                 xDirection = 1;
+                yDirection = 1;
                 tossWinnerChar = 'X';
             }
             else {
                 xDirection = -1;
+                yDirection = -1;
                 tossWinnerChar = 'O';
             }
 
@@ -514,6 +529,19 @@ public class Main {
                 }
 
                 //===================================================== PLAYER MOVEMENT ======================================================//
+
+                System.out.println("Items in HashMap are " + teams.keySet());
+
+                // Print items in hashmap
+                for (String key : teams.keySet()) {
+                    System.out.println(key + " " + teams.get(key));
+                    System.out.println(teams.get(key).getPlayers());
+                    System.out.println(teams.get(key).getCoach());
+                    System.out.println(teams.get(key).getDoctor());
+                    System.out.println(teams.get(key).toStrings());
+                    System.out.println("\n");
+                }
+
 
             }
             else {
@@ -710,7 +738,7 @@ public class Main {
             System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY());
 
 
-            PlayerMovement(matrix, teams, tossWinner, randomPlayer);
+            PlayerMovement(matrix, teams, tossWinner, randomPlayer,xDirection,yDirection);
 
             // Players current position
             System.out.println("Position "+ teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX());
@@ -729,33 +757,40 @@ public class Main {
 
             // playing team
             // Loop through all players except the random player
-            for (int i = 1; i < 11; i++) {
+            for (int i = 1; i < 10; i++) {
+                // print player object
+                System.out.println("\n" + teams.get("Team-"+tossWinner).getPlayers().get(i));
 
-                if (tossWinner == 1) {
-
-                    // Get player xposition and yposition
-                    int playerX = teams.get("Team-1").getPlayers().get(i).getPlayerPositionX();
-                    int playerY = teams.get("Team-1").getPlayers().get(i).getPlayerPositionY();
-
-                    // player position - goal position
-                    int playerPositionX = playerX - goalX;
-                    int playerPositionY = playerY - goalY;
-
-                    if (playerPositionX < 0 ) {
-                        // Move player to the left
-                        //playerX = playerX - MovementGenerator(teams.get("Team-1").getPlayers().get(i).getPlayerMovementSkill());
-
-                        int weight = 2;
-                        // Player is on the left side of the goal // So should move more wighted right
-                        RandomCollection<Object> rc = new RandomCollection<>().add(weight, 1).add((3-weight), 1);
+                // Print team 1 in hashmap
+                System.out.println(teams.get("Team-1"));
 
 
-                    }
 
-                    xDirection = 1;
-                }
-                else {
-                    xDirection = -1;
+                // Get player xposition and yposition
+                int playerX = teams.get("Team-"+playingTeam).getPlayers().get(i).getPlayerPositionX();
+                int playerY = teams.get("Team-"+playingTeam).getPlayers().get(i).getPlayerPositionY();
+
+                // player position - goal position
+                int playerPositionX = playerX - goalX;
+                int playerPositionY = playerY - goalY;
+
+                // when y>0 player is above the goal
+                // Same for x and y
+
+                // In team 2
+                // - of the team 1
+
+                // If boundary foun hchange direction
+
+                // Find goal to net
+
+                playerX = PlayerDirection(playerPositionX);
+                playerY = PlayerDirection(playerPositionY);
+
+
+                if (tossWinner == 2) {
+                    playerX = -playerX;
+                    playerY = -playerY;
                 }
 
 
@@ -764,7 +799,7 @@ public class Main {
                     System.out.println("For Player " + i);
 
                     // Move player
-                    PlayerMovement(matrix, teams, tossWinner, i);
+                    PlayerMovement(matrix, teams, playingTeam, i, playerX, playerY);
 
                     // Print Matrix
                     printMatrix(matrix);
@@ -773,12 +808,41 @@ public class Main {
             }
 
             // Other team
-            int defendingTeam = tossWinner == 1 ? 2 : 1;
+            int defendingTeam = playingTeam == 1 ? 2 : 1;
 
             // For player in other team
             for (int i = 1; i < 11; i++) {
+
+                System.out.println("Second Team");
+
+                // Get player xposition and yposition
+                int playerX = teams.get("Team-"+defendingTeam).getPlayers().get(i).getPlayerPositionX();
+                int playerY = teams.get("Team-"+defendingTeam).getPlayers().get(i).getPlayerPositionY();
+
+                // player position - goal position
+                int playerPositionX = playerX - goalX;
+                int playerPositionY = playerY - goalY;
+
+                // when y>0 player is above the goal
+                // Same for x and y
+
+                // In team 2
+                // - of the team 1
+
+                // If boundary foun hchange direction
+
+                // Find goal to net
+
+                playerX = PlayerDirection(playerPositionX);
+                playerY = PlayerDirection(playerPositionY);
+
+                if (tossWinner == 2) {
+                    playerX = -playerX;
+                    playerY = -playerY;
+                }
+
                 // Move player
-                PlayerMovement(matrix, teams, defendingTeam, i);
+                PlayerMovement(matrix, teams, defendingTeam, i, playerX, playerY);
                 printMatrix(matrix);
             }
 
@@ -863,8 +927,6 @@ public class Main {
 
                 // Clear hashmap
 
-
-
             }
             else {
                 // Player won't get a goal
@@ -875,6 +937,20 @@ public class Main {
             }
             //System.out.println("\nTeam-1 Score " + team1Score + "  Team-2 Score " + team2Score);
             System.out.println("\n");
+
+
+            System.out.println("Items in HashMap are " + teams.keySet());
+
+            // Print items in hashmap
+            for (String key : teams.keySet()) {
+                System.out.println(key + " " + teams.get(key));
+                System.out.println(teams.get(key).getPlayers());
+                System.out.println(teams.get(key).getCoach());
+                System.out.println(teams.get(key).getDoctor());
+                System.out.println(teams.get(key).toStrings());
+                System.out.println("\n");
+            }
+
 
         }
 
@@ -975,6 +1051,21 @@ public class Main {
         // Width = 11(44) + some value (8)
     }
 
+    // This is setuped for Team1, Team 2 will - of the result
+    private static int PlayerDirection(int playerPosition) {
+        int Direction;
+        int[] DirectionArray;
+
+        if (playerPosition < 0) {
+            DirectionArray = new int[]{1, 1, -1};
+        }
+        else {
+            DirectionArray = new int[]{1, -1, -1};
+        }
+        Direction = DirectionArray[(int) (Math.random() * DirectionArray.length)];
+        return Direction;
+    }
+
     private static void printMatrix(char[][] matrix) {
         // Change console color
         System.out.println("\u001B[31m");
@@ -988,12 +1079,11 @@ public class Main {
         }
     }
 
-    private static void PlayerMovement(char[][] matrix, HashMap<String, Team> teams, int tossWinner, int randomPlayer) {
+    private static void PlayerMovement(char[][] matrix, HashMap<String, Team> teams, int tossWinner, int randomPlayer, int xDirection, int yDirection) {
         //===================================================== PLAYER MOVEMENT ======================================================//
 
         // X and Y direction decide
-        boolean xDirection;
-        boolean yDirection;
+
 
         // Get goal positions
 
@@ -1001,18 +1091,85 @@ public class Main {
         int playerX = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX();
         int playerY = teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY();
 
+        // Print current position
+        System.out.println("Player " + randomPlayer + " is at " + playerX + " " + playerY);
+
+        int generatedX = MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+        int generatedY = MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+
+        // Print generated position
+        System.out.println("Player " + randomPlayer + " Generated values are " + (generatedX) + " " + (generatedY));
+
         // Players new position
-        int newPlayerX = playerX + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
-        int newPlayerY = playerY + MovementGenerator(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerSpeedSkill());
+        int newPlayerX = playerX + (xDirection * generatedX);
+        int newPlayerY = playerY + (yDirection * generatedY);
+
+        // size of matrix
+        int matrixSizeX = matrix.length;        // Goal Lines
+        int matrixSizeY = matrix[0].length;     // Side Lines
+
+        // Display new positions
+        System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
+
+        // Print matrix size
+        System.out.println("Matrix size " + matrixSizeX + " " + matrixSizeY);
+
+        // Check if player is out of bounds (Side Lines)
+        if (newPlayerX < 0 || newPlayerX >= matrixSizeX) {
+            newPlayerX = playerX;
+            System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+            xDirection = -xDirection;
+            newPlayerX = playerX +  (2 * xDirection * generatedX);
+            // print new position
+            System.out.println("NewX "+newPlayerX);
+        }
+
+        if (newPlayerY < 0 || newPlayerY >= matrixSizeY) {
+            newPlayerY = playerY;
+            System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+            yDirection = -yDirection;
+            newPlayerY = playerY + (2 * yDirection * generatedY);
+            System.out.println("NewY "+ newPlayerY);
+        }
+
 
         // Set new positions for player
         teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionX(newPlayerX);
         teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).setPlayerPositionY(newPlayerY);
 
+        // Get new positions for player
+        System.out.println(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionX());
+        System.out.println(teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getPlayerPositionY());
+
         // Display new positions
         System.out.println("Player " + randomPlayer + " new position " + newPlayerX + " " + newPlayerY);
 
         // Clear matrix[playrey][playerx] position
+        // if error in matrix call Playermovement again
+
+        // if matrix out of bounds call Playermovement again
+        if (newPlayerX < 0 || newPlayerX >= matrixSizeX || newPlayerY < 0 || newPlayerY >= matrixSizeY) {
+            System.out.println("Error.....");
+        }
+
+        // if matrix out of bounds call Playermovement again
+        if (newPlayerX < 0 ) {
+            System.out.println("Error...1111111111111111111..............................");
+            System.out.println(newPlayerX);
+        }
+        if ( newPlayerX >= matrixSizeY){
+            System.out.println("Error....22222222222222...................................");
+            System.out.println(newPlayerX);
+
+        }
+        if (newPlayerY < 0){
+            System.out.println("Error....3333333333333......................................");
+        }
+        if (newPlayerY >= matrixSizeX){
+            System.out.println("Error.....44444444444444....................................");
+        }
+
+
         matrix[playerY][playerX] = ' ';
 
         // If team- tosswinner is 1 then
@@ -1023,7 +1180,12 @@ public class Main {
             matrix[newPlayerY][newPlayerX] = 'O';
         }
 
+        playerX = newPlayerX;
+        playerY = newPlayerY;
+
         //===================================================== PLAYER MOVEMENT ======================================================//
+
+
     }
 
     private static int MovementGenerator(int playerSkill) {
@@ -1042,6 +1204,10 @@ public class Main {
         // Return movementLength
         return (int) movementLength;
     }
+
+
+
+
 
     static double squareRoot(int number, double tolerance) {
         // Assuming the sqrt of n as n only
@@ -1102,31 +1268,6 @@ public class Main {
 
 }
 
-class RandomCollection<E> {
-    private final NavigableMap<Double, E> map = new TreeMap<Double, E>();
-    private final Random random;
-    private double total = 0;
-
-    public RandomCollection() {
-        this(new Random());
-    }
-
-    public RandomCollection(Random random) {
-        this.random = random;
-    }
-
-    public RandomCollection<E> add(double weight, E result) {
-        if (weight <= 0) return this;
-        total += weight;
-        map.put(total, result);
-        return this;
-    }
-
-    public E next() {
-        double value = random.nextDouble() * total;
-        return map.higherEntry(value).getValue();
-    }
-}
 
 // Football
 // Team has 11 to 18 members
@@ -1145,13 +1286,13 @@ class RandomCollection<E> {
 
 // Game Rules:
 
-// 1. Game start from ball in center of the field.
+// 1. Game start from ball in center of the field. - Done
 //
-// 2. Then team which won the toss get they chance to kick. - KICK OFF
-//      The players should be in their initial positions. (4 3 3)
+// 2. Then team which won the toss get they chance to kick. - KICK OFF -Done
+//      The players should be in their initial positions. (4 4 2)
 //
-// 3. a. First ball is considered as directly go in to the goal or not, or out of the filed.
-// 3. b. Then Goto goal, or not, Out of the filed, Passed in to Player and other conditions are applied.
+// 3. a. First ball is considered as directly go in to the goal or not, or out of the filed. - Not Using now
+// 3. b. Then Goto goal, or not, Out of the filed, Passed in to Player (Done) and other conditions are applied.
 //
 // 4. When ball go out of the field (Side lines), Change the team and let them to throw the ball from where the ball left the filed
 //
@@ -1219,3 +1360,59 @@ class RandomCollection<E> {
 // Save goal and do drop kicks to far away from the goal area.
 
 // Forwards
+
+
+
+/*
+
+        // Check if player is out of bounds (Side Lines)
+        if (newPlayerX < 0 || newPlayerX >= matrixSizeX) {
+            System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+            // Change playing team
+            tossWinner = (tossWinner == 1) ? 2 : 1;
+            return;
+
+            // Additionally, we can find the player near the goal from the new team and let him throw ball
+        }
+
+        /*else if (newPlayerX >= matrixSizeX) {
+            System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+            if (tossWinner == 1) {
+
+            }
+            else {
+
+            }
+        }
+        // Add End comment here
+
+
+        // 0-6 and 14 - 20 are the out of bounds
+        // 6 - 14 are the goals
+
+        // if (newPlayerY < 0 || newPlayerY >= matrixSizeY) {
+        System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+        // Change playing team
+        tossWinner = (tossWinner == 1) ? 2 : 1;
+        return;
+        }
+
+        else if ( 0 <= newPlayerX && newPlayerX <= 6 && 0 <= newPlayerY && newPlayerY <= 6) {
+
+        }
+
+        else if ( newPlayerY < 0) {
+        System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+        if (tossWinner == 1) {
+
+        }
+        else {
+
+        }
+        }
+
+        else if (newPlayerY >= matrixSizeY) {
+        System.out.println("Player " + teams.get("Team-"+tossWinner).getPlayers().get(randomPlayer).getName() + " is out of bounds!");
+        }
+
+*/
